@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Oishii - La Carte</title>
+    <link href="./output.css" rel="stylesheet">
+    <!-- Police 'Outfit' pour un côté plus moderne et rond -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Script pour les icones -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- CSS pour cacher la scrollbar horizontale -->
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-[#FDFCF8] text-stone-800 font-['Outfit'] antialiased pb-32 md:pb-0">
+
+    <!-- NAVBAR (Large sur PC) -->
+    <nav class="fixed top-0 w-full z-50 bg-[#FDFCF8]/90 backdrop-blur-md border-b border-stone-200/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <div class="text-2xl font-bold tracking-tight text-stone-900 flex items-center gap-2">
+                <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-lg">O</div>
+                SUSHI OISHII
+            </div>
+
+            <!-- Droite : Status + Tel (Visible sur PC) -->
+            <div class="flex items-center gap-4">
+                <!-- Numéro PC uniquement -->
+                <a href="tel:0160361290" class="hidden md:flex items-center gap-2 text-stone-600 hover:text-stone-900 font-bold transition">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                    01 60 36 12 90
+                </a>
+
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-stone-100 shadow-sm">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                    </span>
+                    <span class="text-xs text-stone-600 font-bold uppercase tracking-wider">Ouvert</span>
+                </div>
+                
+                <!-- Bouton Commander PC -->
+                <a href="tel:0160361290" class="hidden md:block bg-stone-900 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:bg-stone-800 transition">
+                    Commander
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Split Screen sur PC) -->
+    <section class="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Texte (Gauche sur PC, Centré sur Mobile) -->
+            <div class="text-center md:text-left order-2 md:order-1">
+                <p class="text-red-500 text-xs font-bold tracking-[0.2em] uppercase mb-4 opacity-80">Montévrain • Val d'Europe</p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-stone-900 leading-[1.1]">
+                    Goûtez à la <br/>
+                    <span class="text-stone-400 font-light">fraîcheur.</span>
+                </h1>
+                <p class="text-stone-500 text-base md:text-lg max-w-md mx-auto md:mx-0 mb-8 leading-relaxed font-light">
+                    Sushis préparés minute par nos chefs. 
+                    <br class="hidden md:block">Choisissez vos plats et appelez-nous pour commander.
+                </p>
+                <div class="hidden md:flex gap-4">
+                    <button onclick="document.getElementById('menu-section').scrollIntoView({behavior: 'smooth'})" class="bg-red-500 text-white px-8 py-4 rounded-full font-bold shadow-xl hover:bg-red-600 transition transform hover:-translate-y-1">
+                        Voir la carte
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Image Hero (Droite sur PC) -->
+            <div class="order-1 md:order-2 relative w-full max-w-md mx-auto md:max-w-full aspect-[16/10] md:aspect-square group rounded-3xl overflow-hidden shadow-2xl shadow-stone-200">
+                <!-- Si l'image sushi-hero.jpg n'existe pas, on affiche un placeholder propre -->
+                <img src="./sushi-hero.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" alt="Plateau Sushi" class="object-cover w-full h-full transform group-hover:scale-105 transition duration-700 ease-out">
+                
+                <!-- Fallback Placeholder (Caché si image existe) -->
+                <div class="w-full h-full bg-stone-200 hidden items-center justify-center text-stone-400 text-2xl font-medium">
+                    Photo Hero
+                </div>
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+                <div class="absolute bottom-6 left-6 text-white text-left pointer-events-none">
+                    <p class="font-bold text-xl md:text-2xl">Plateau Découverte</p>
+                    <p class="text-sm opacity-90">24 pièces • 32,00€</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FILTRES CATÉGORIES (Centré sur PC) -->
+    <div id="menu-section" class="sticky top-20 z-40 bg-[#FDFCF8]/95 backdrop-blur-sm py-6 border-b border-stone-100">
+        <div class="max-w-7xl mx-auto px-6 overflow-x-auto no-scrollbar">
+            <div class="flex gap-3 md:justify-center min-w-max">
+                <button onclick="filterMenu('all', this)" class="category-btn snap-start bg-stone-900 text-white px-6 py-3 rounded-full font-medium text-sm shadow-lg transition-all transform hover:scale-105 cursor-default">Tout</button>
+                <button onclick="filterMenu('maki', this)" class="category-btn snap-start bg-white text-stone-600 border border-stone-200 px-6 py-3 rounded-full font-medium text-sm hover:border-stone-900 transition-all cursor-pointer">Makis</button>
+                <button onclick="filterMenu('sushi', this)" class="category-btn snap-start bg-white text-stone-600 border border-stone-200 px-6 py-3 rounded-full font-medium text-sm hover:border-stone-900 transition-all cursor-pointer">Sushis</button>
+                <button onclick="filterMenu('california', this)" class="category-btn snap-start bg-white text-stone-600 border border-stone-200 px-6 py-3 rounded-full font-medium text-sm hover:border-stone-900 transition-all cursor-pointer">California</button>
+                <button onclick="filterMenu('brochette', this)" class="category-btn snap-start bg-white text-stone-600 border border-stone-200 px-6 py-3 rounded-full font-medium text-sm hover:border-stone-900 transition-all cursor-pointer">Brochettes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRILLE PRODUITS (Responsive Grid) -->
+    <section class="px-6 py-12 max-w-7xl mx-auto min-h-[50vh]">
+        <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- MAKIS -->
+            <div class="menu-item maki bg-white p-4 rounded-3xl flex gap-5 shadow-sm border border-stone-100 hover:shadow-lg hover:border-stone-200 transition-all duration-300 group">
+                <!-- Placeholder Photo -->
+                <div class="w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-stone-200 flex items-center justify-center text-stone-400 text-sm font-medium">
+                    Photo
+                </div>
+                <div class="flex-1 flex flex-col justify-between py-1">
+                    <div>
+                        <h3 class="font-bold text-xl text-stone-900">Maki Saumon</h3>
+                        <p class="text-xs text-stone-500 mt-2 line-clamp-2 leading-relaxed">Saumon frais label rouge, riz vinaigré, algue nori. (6 pièces)</p>
+                    </div>
+                    <div class="flex justify-between items-end mt-2">
+                        <span class="font-bold text-xl text-stone-900">5,50 €</span>
+                        <div class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-900 group-hover:bg-red-500 group-hover:text-white transition">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item maki bg-white p-4 rounded-3xl flex gap-5 shadow-sm border border-stone-100 hover:shadow-lg hover:border-stone-200 transition-all duration-300 group">
+                <!-- Placeholder Photo -->
+                <div class="w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-stone-200 flex items-center justify-center text-stone-400 text-sm font-medium">
+                    Photo
+                </div>
+                <div class="flex-1 flex flex-col justify-between py-1">
+                    <div>
+                        <h3 class="font-bold text-xl text-stone-900">Maki Thon</h3>
+                        <p class="text-xs text-stone-500 mt-2 line-clamp-2 leading-relaxed">Thon albacore, riz vinaigré. (6 pièces)</p>
+                    </div>
+                    <div class="flex justify-between items-end mt-2">
+                        <span class="font-bold text-xl text-stone-900">5,90 €</span>
+                        <div class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-900 group-hover:bg-red-500 group-hover:text-white transition">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALIFORNIA -->
+            <div class="menu-item california bg-white p-4 rounded-3xl flex gap-5 shadow-sm border border-stone-100 hover:shadow-lg hover:border-stone-200 transition-all duration-300 group">
+                <!-- Placeholder Photo -->
+                <div class="w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-stone-200 flex items-center justify-center text-stone-400 text-sm font-medium">
+                    Photo
+                </div>
+                <div class="flex-1 flex flex-col justify-between py-1">
+                    <div>
+                        <h3 class="font-bold text-xl text-stone-900">Cali Avocat</h3>
+                        <p class="text-xs text-stone-500 mt-2 line-clamp-2 leading-relaxed">Avocat, surimi, sésame grillé. (6 pièces)</p>
+                    </div>
+                    <div class="flex justify-between items-end mt-2">
+                        <span class="font-bold text-xl text-stone-900">6,00 €</span>
+                        <div class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-900 group-hover:bg-red-500 group-hover:text-white transition">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUSHIS -->
+            <div class="menu-item sushi bg-white p-4 rounded-3xl flex gap-5 shadow-sm border border-stone-100 hover:shadow-lg hover:border-stone-200 transition-all duration-300 group">
+                <!-- Placeholder Photo -->
+                <div class="w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-stone-200 flex items-center justify-center text-stone-400 text-sm font-medium">
+                    Photo
+                </div>
+                <div class="flex-1 flex flex-col justify-between py-1">
+                    <div>
+                        <h3 class="font-bold text-xl text-stone-900">Sushi Saumon</h3>
+                        <p class="text-xs text-stone-500 mt-2 line-clamp-2 leading-relaxed">Tranche de saumon sur riz. (2 pièces)</p>
+                    </div>
+                    <div class="flex justify-between items-end mt-2">
+                        <span class="font-bold text-xl text-stone-900">4,50 €</span>
+                        <div class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-900 group-hover:bg-red-500 group-hover:text-white transition">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BROCHETTES (Placeholder) -->
+            <div class="menu-item brochette bg-white p-4 rounded-3xl flex gap-5 shadow-sm border border-stone-100 hover:shadow-lg hover:border-stone-200 transition-all duration-300 group">
+                <div class="w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-stone-200 flex items-center justify-center text-stone-400 text-sm font-medium">
+                    Photo
+                </div>
+                <div class="flex-1 flex flex-col justify-between py-1">
+                    <div>
+                        <h3 class="font-bold text-xl text-stone-900">Yakitori Boeuf</h3>
+                        <p class="text-xs text-stone-500 mt-2 line-clamp-2 leading-relaxed">Brochettes de boeuf au fromage. (2 pièces)</p>
+                    </div>
+                    <div class="flex justify-between items-end mt-2">
+                        <span class="font-bold text-xl text-stone-900">5,50 €</span>
+                        <div class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-900 group-hover:bg-red-500 group-hover:text-white transition">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BARRE DE COMMANDE (Mobile Only) -->
+    <!-- 'md:hidden' la cache sur les écrans moyens et larges -->
+    <div class="fixed bottom-6 left-6 right-6 z-50 max-w-md mx-auto md:hidden">
+        <a href="tel:0160361290" class="group flex justify-between items-center bg-stone-900 text-white p-4 rounded-2xl font-bold shadow-2xl hover:scale-[1.02] transition-all duration-300 border border-stone-800">
+            <div class="flex items-center gap-3">
+                <div class="bg-white text-stone-900 w-10 h-10 rounded-full flex items-center justify-center shadow-lg group-hover:rotate-12 transition duration-300">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-light text-stone-400">Commander au</span>
+                    <span class="leading-none text-lg">01 60 36 12 90</span>
+                </div>
+            </div>
+            <div class="bg-stone-800 p-2 rounded-lg">
+                <i data-lucide="chevron-right" class="w-5 h-5 text-stone-400"></i>
+            </div>
+        </a>
+    </div>
+
+    <!-- JAVASCRIPT pour le Filtrage -->
+    <script>
+        lucide.createIcons();
+
+        function filterMenu(category, btnElement) {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                // Style par défaut (blanc)
+                btn.className = "category-btn snap-start flex-shrink-0 bg-white text-stone-600 border border-stone-200 px-6 py-3 rounded-full font-medium text-sm hover:border-stone-900 transition-all cursor-pointer";
+            });
+            // Style actif (noir)
+            btnElement.className = "category-btn snap-start flex-shrink-0 bg-stone-900 text-white px-6 py-3 rounded-full font-medium text-sm shadow-lg transition-all transform scale-105 cursor-default";
+
+            const items = document.querySelectorAll('.menu-item');
+            
+            items.forEach(item => {
+                if (category === 'all') {
+                    item.style.display = 'flex';
+                    item.style.opacity = '0';
+                    setTimeout(() => item.style.opacity = '1', 50);
+                } else {
+                    if (item.classList.contains(category)) {
+                        item.style.display = 'flex';
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.opacity = '1', 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
